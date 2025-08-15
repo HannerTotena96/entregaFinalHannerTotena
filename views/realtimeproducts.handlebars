@@ -1,0 +1,60 @@
+<h1>🧪 Lista de Productos en Tiempo Real</h1>
+
+<form id="product-form">
+  <h2>Agregar Producto</h2>
+  <input type="text" name="title" placeholder="Título" required>
+  <input type="text" name="description" placeholder="Descripción" required>
+  <input type="text" name="code" placeholder="Código" required>
+  <input type="number" name="price" placeholder="Precio" required>
+  <input type="number" name="stock" placeholder="Stock" required>
+  <input type="text" name="category" placeholder="Categoría" required>
+  <input type="text" name="thumbnails" placeholder="URL imagen (opcional)">
+  <button type="submit">Agregar Producto</button>
+</form>
+
+<h2>Productos actuales</h2>
+<ul id="product-list">
+  {{#each products}}
+    <li data-id="{{this.id}}">
+      <strong>{{this.title}}</strong> - ${{this.price}} 
+      <button class="delete-btn">Eliminar</button>
+    </li>
+  {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  const form = document.getElementById('product-form');
+  const productList = document.getElementById('product-list');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const product = {};
+    formData.forEach((value, key) => {
+      product[key] = key === "price" || key === "stock" ? Number(value) : value;
+    });
+    socket.emit('new-product', product);
+    form.reset();
+  });
+
+  productList.addEventListener('click', e => {
+    if (e.target.classList.contains('delete-btn')) {
+      const li = e.target.closest('li');
+      const id = li.dataset.id;
+      socket.emit('delete-product', Number(id));
+    }
+  });
+
+  socket.on('products-updated', products => {
+    productList.innerHTML = '';
+    products.forEach(product => {
+      const li = document.createElement('li');
+      li.dataset.id = product.id;
+      li.innerHTML = `<strong>${product.title}</strong> - $${product.price} <button class="delete-btn">Eliminar</button>`;
+      productList.appendChild(li);
+    });
+  });
+</script>

@@ -1,0 +1,56 @@
+<h1 class="text-center mt-4">Productos disponibles</h1>
+
+<div class="d-flex justify-content-end mb-3">
+  <form method="GET" action="/products" class="d-flex gap-2">
+    <input type="text" name="query" class="form-control" placeholder="Buscar categoría o disponibilidad" value="{{query}}">
+    <select name="sort" class="form-select">
+      <option value="">Ordenar por precio</option>
+      <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Ascendente</option>
+      <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Descendente</option>
+    </select>
+    <button class="btn btn-primary" type="submit">Filtrar</button>
+  </form>
+</div>
+
+<div class="row">
+  {{#each products}}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="/{{this.thumbnails.[0]}}" class="card-img-top" alt="{{this.title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <p class="card-text">{{this.description}}</p>
+          <p><strong>Precio:</strong> ${{this.price}}</p>
+          <p><strong>Categoría:</strong> {{this.category}}</p>
+          <p><strong>Stock:</strong> {{this.stock}}</p>
+          <form method="POST" action="/add-to-cart/{{this._id}}">
+            <button class="btn btn-success w-100">Agregar al carrito 🛒</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+<!-- Paginación -->
+<nav aria-label="Paginación" class="mt-4">
+  <ul class="pagination justify-content-center">
+    {{#if hasPrevPage}}
+      <li class="page-item">
+        <a class="page-link" href="/products?page={{prevPage}}&limit=6{{#if sort}}&sort={{sort}}{{/if}}{{#if query}}&query={{query}}{{/if}}">Anterior</a>
+      </li>
+    {{/if}}
+
+    {{#each (range 1 totalPages)}}
+      <li class="page-item {{#if (eq ../page this)}}active{{/if}}">
+        <a class="page-link" href="/products?page={{this}}&limit=6{{#if ../sort}}&sort={{../sort}}{{/if}}{{#if ../query}}&query={{../query}}{{/if}}">{{this}}</a>
+      </li>
+    {{/each}}
+
+    {{#if hasNextPage}}
+      <li class="page-item">
+        <a class="page-link" href="/products?page={{nextPage}}&limit=6{{#if sort}}&sort={{sort}}{{/if}}{{#if query}}&query={{query}}{{/if}}">Siguiente</a>
+      </li>
+    {{/if}}
+  </ul>
+</nav>

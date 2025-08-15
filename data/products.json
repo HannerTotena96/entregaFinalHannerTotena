@@ -1,0 +1,143 @@
+[
+  {
+    "id": 1,
+    "title": "Tamiz 200 mesh",
+    "description": "Tamiz para granulometría",
+    "price": 120000,
+    "code": "TAM-200",
+    "status": true,
+    "stock": 25,
+    "category": "Equipos",
+    "thumbnails": [
+      "images/tamiz.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Reactivo Xantato PAX",
+    "description": "Colector para flotación de sulfuros",
+    "price": 58000,
+    "code": "PAX-01",
+    "status": true,
+    "stock": 40,
+    "category": "Reactivos",
+    "thumbnails": [
+      "images/pax.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Micropipeta 1000 µL",
+    "description": "Instrumento de medición precisa de líquidos",
+    "price": 95000,
+    "code": "MICRO-1ML",
+    "status": true,
+    "stock": 15,
+    "category": "Instrumentos",
+    "thumbnails": [
+      "images/micropipeta.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Probeta Graduada 250 mL",
+    "description": "Recipiente medidor cilíndrico para líquidos",
+    "price": 32000,
+    "code": "PROB-250",
+    "status": true,
+    "stock": 35,
+    "category": "Instrumentos",
+    "thumbnails": [
+      "images/probeta.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Tubo de Ensayo 16x150 mm",
+    "description": "Vidrio resistente para pruebas químicas",
+    "price": 1500,
+    "code": "TUBO-16150",
+    "status": true,
+    "stock": 200,
+    "category": "Instrumentos",
+    "thumbnails": [
+      "images/tubo.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Agitador Magnético",
+    "description": "Equipo para agitación de soluciones",
+    "price": 230000,
+    "code": "AGI-MAG",
+    "status": true,
+    "stock": 10,
+    "category": "Equipos",
+    "thumbnails": [
+      "images/agitador.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Balanza Analítica 0.0001g",
+    "description": "Alta precisión para pesaje en laboratorio",
+    "price": 780000,
+    "code": "BAL-0001",
+    "status": true,
+    "stock": 5,
+    "category": "Equipos",
+    "thumbnails": [
+      "images/balanza.jpg"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "pH-metro Digital",
+    "description": "Medidor digital de pH para soluciones",
+    "price": 165000,
+    "code": "PH-DIGI",
+    "status": true,
+    "stock": 12,
+    "category": "Equipos",
+    "thumbnails": [
+      "images/phmetro.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Beaker 500 mL",
+    "description": "Vaso de precipitados resistente al calor",
+    "price": 8500,
+    "code": "BEAKER500",
+    "status": true,
+    "stock": 50,
+    "category": "Instrumentos",
+    "thumbnails": [
+      "images/beaker.jpg"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Termómetro de Alcohol",
+    "description": "Medición de temperatura en laboratorio",
+    "price": 18000,
+    "code": "TERM-ALC",
+    "status": true,
+    "stock": 30,
+    "category": "Instrumentos",
+    "thumbnails": [
+      "images/termometro.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "status": true,
+    "title": "Placa calefactora",
+    "description": "Equipo para calentar muestras en laboratorio",
+    "code": "PLAC-CA",
+    "price": 210000,
+    "stock": 8,
+    "category": "Equipos",
+    "thumbnails": ["images/placa.jpg"] 
+  }
+]

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo de Productos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+  <div class="container py-4">
+    <h1 class="mb-4 text-center">Catálogo de Laboratorio Metalúrgico</h1>
+
+    <!-- Categorías -->
+    <div class="d-flex justify-content-center gap-3 mb-5">
+      <a href="/category/equipos" class="btn btn-primary">Equipos</a>
+      <a href="/category/instrumentos" class="btn btn-success">Instrumentos</a>
+      <a href="/category/reactivos" class="btn btn-warning">Reactivos</a>
+    </div>
+
+    <!-- Lista de Productos -->
+    <div class="row">
+      {{#each products}}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            {{#if this.thumbnails.[0]}}
+              <img src="/img/{{this.thumbnails.[0]}}" class="card-img-top" alt="{{this.title}}">
+            {{else}}
+              <img src="/img/default.jpg" class="card-img-top" alt="Sin imagen">
+            {{/if}}
+            <div class="card-body">
+              <h5 class="card-title">{{this.title}}</h5>
+              <p class="card-text">{{this.description}}</p>
+              <p class="card-text"><strong>Precio:</strong> ${{this.price}}</p>
+              <p class="card-text"><strong>Categoría:</strong> {{this.category}}</p>
+              <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+</body>
+</html>

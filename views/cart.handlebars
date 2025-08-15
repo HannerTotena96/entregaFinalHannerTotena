@@ -1,0 +1,73 @@
+<h1 class="text-center mb-4">🛒 Tu Carrito</h1>
+
+{{#if cart.products.length}}
+  <div class="row justify-content-center">
+    {{#each cart.products}}
+      <div class="card m-2" style="width: 18rem;">
+        <img src="/{{this.product.thumbnails.[0]}}" class="card-img-top" alt="{{this.product.title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{this.product.title}}</h5>
+          <p class="card-text">{{this.product.description}}</p>
+          <p class="card-text"><strong>Precio: ${{this.product.price}}</strong></p>
+          <p class="card-text">Cantidad: {{this.quantity}}</p>
+
+          <button 
+            class="btn btn-danger btn-sm delete-btn" 
+            data-product-id="{{this.product._id}}">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-primary">← Volver a Categorías</a>
+  </div>
+{{else}}
+  <p class="text-center">Tu carrito está vacío 😢</p>
+  <div class="text-center">
+    <a href="/" class="btn btn-primary mt-4">Explorar productos</a>
+  </div>
+{{/if}}
+
+<script>
+  const cartId = "{{cart._id}}";
+
+  // Botones para eliminar productos
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const productId = btn.getAttribute('data-product-id');
+
+      const confirmDelete = confirm("¿Estás seguro de eliminar este producto?");
+      if (!confirmDelete) return;
+
+      try {
+        const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+          method: 'DELETE'
+        });
+
+        const data = await res.json();
+        if (data.status === "success") {
+          alert("🗑️ Producto eliminado del carrito");
+
+          // Actualizar contador de carrito
+          const badge = document.getElementById("cart-count");
+          if (badge) {
+            let count = parseInt(localStorage.getItem("cartCount")) || 0;
+            count = count > 0 ? count - 1 : 0;
+            localStorage.setItem("cartCount", count);
+            badge.textContent = count;
+          }
+
+          location.reload(); // Recargar para mostrar cambios
+        } else {
+          alert("⚠️ No se pudo eliminar el producto");
+        }
+      } catch (err) {
+        console.error("❌ Error:", err);
+        alert("❌ Ocurrió un error al eliminar");
+      }
+    });
+  });
+</script>

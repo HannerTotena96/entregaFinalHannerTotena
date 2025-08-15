@@ -1,0 +1,70 @@
+<h1 class="mb-4 text-center">Productos de la categoría: {{category}}</h1>
+
+<div class="row justify-content-center">
+  {{#if products.length}}
+    {{#each products}}
+      <div class="card m-2" style="width: 18rem;">
+        <img src="/{{this.thumbnails.[0]}}" class="card-img-top" alt="{{this.title}}">
+        <div class="card-body">
+          <h5 class="card-title">{{this.title}}</h5>
+          <p class="card-text">{{this.description}}</p>
+          <p class="card-text"><strong>${{this.price}}</strong></p>
+          <button class="btn btn-success add-to-cart-btn" data-product-id="{{this._id}}">
+            Agregar al carrito 🛒
+          </button>
+          <a href="/products/{{this._id}}" class="btn btn-outline-primary mt-2">Ver más</a>
+
+        </div>
+      </div>
+    {{/each}}
+  {{else}}
+    <p class="text-center">No hay productos disponibles en esta categoría.</p>
+  {{/if}}
+</div>
+
+<a href="/" class="btn btn-secondary mt-4">Volver a Categorías</a>
+
+<script>
+  const fixedCartId = "689d6b56ce1941e33823c12f"; // ID fijo de carrito
+
+  // Añadir evento a cada botón
+  document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const productId = btn.getAttribute('data-product-id');
+
+      try {
+        const response = await fetch(`/api/carts/${fixedCartId}/products/${productId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+          alert("✅ Producto agregado al carrito");
+
+          // 🛒 Actualizar contador del carrito en el navbar
+          const badge = document.getElementById("cart-count");
+          let currentCount = parseInt(localStorage.getItem("cartCount")) || 0;
+          currentCount++;
+          localStorage.setItem("cartCount", currentCount);
+          if (badge) badge.textContent = currentCount;
+
+        } else {
+          alert("⚠️ No se pudo agregar al carrito");
+        }
+      } catch (err) {
+        alert("❌ Error al intentar agregar al carrito");
+        console.error(err);
+      }
+    });
+  });
+
+  // Mostrar valor del contador desde localStorage al cargar la vista
+  document.addEventListener("DOMContentLoaded", () => {
+    const badge = document.getElementById("cart-count");
+    const savedCount = localStorage.getItem("cartCount");
+    if (badge && savedCount) badge.textContent = savedCount;
+  });
+</script>
